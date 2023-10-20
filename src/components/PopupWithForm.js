@@ -1,17 +1,21 @@
 
-function PopupWithForm (props) {
-  const popupOpened = `${props.isOpen ? 'popup_opened': ''}`
+function PopupWithForm ({isOpen, name, title, children, submitText, onClose}) {
   return (
     <>
-      <div className={`popup popup_${props.name} ${popupOpened}`}>
-        <div className={`popup__container popup__container_${props.name}`}>
-          <form action="#" method="POST" name={props.name} className={`popup__form popup__form_${props.name}`} noValidate>
-            <h2 className="popup__title">{props.title}</h2>
+      <div className={`popup popup_${name} ${isOpen ? 'popup_opened': ''}`}>
+        <div className={`popup__container popup__container_${name}`}>
+          <form action="#" method="POST" name={name} className={`popup__form popup__form_${name}`} noValidate>
+            <h2 className="popup__title">{title}</h2>
             <fieldset className="popup__set">
-              {props.children}
+              {children}
             </fieldset>
+            <button type="submit"
+              className={`popup__submit popup__submit_disabled ${name === 'avatar' ? 'popup__submit_place_avatar' : ''}`}
+              aria-label="Кнопка сохранить">
+              {submitText}<span className="preloader">...</span>
+            </button>
           </form>
-          <button type="button" className="popup__exit" aria-label="Кнопка выхода" onClick={props.onClose}></button>
+          <button type="button" className="popup__exit" aria-label="Кнопка выхода" onClick={onClose}></button>
         </div>
       </div>
     </>

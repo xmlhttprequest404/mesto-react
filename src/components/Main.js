@@ -1,14 +1,14 @@
-import React from "react";
+import {useEffect, useState} from "react";
 import api from "../utils/Api.js";
 import Card from "./Card.js";
 
-function Main (props) {
-  const [userName, setUserName] = React.useState('Жак-Ив Кусто');
-  const [userDescription, setUserDescription] = React.useState('Исследователь океана');
-  const [userAvatar, setUserAvatar] = React.useState();
-  const [cards, setCards] = React.useState([]);
+function Main ({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
+  const [userName, setUserName] = useState('Жак-Ив Кусто');
+  const [userDescription, setUserDescription] = useState('Исследователь океана');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.getUserInfoApi()
       .then(res => {
       setUserName(res.name);
@@ -32,21 +32,21 @@ function Main (props) {
     <>
     <main className="content">
       <section className="profile">
-        <button type="button" className="profile__button-img" aria-label="Редактировать аватар" onClick={props.onEditAvatar}>
+        <button type="button" className="profile__button-img" aria-label="Редактировать аватар" onClick={onEditAvatar}>
           <div className="profile__overlay"></div>
           <div className="profile__avatar" style={{background: `url(${userAvatar}) 50%/cover no-repeat`}}></div>
         </button>
         <div className="profile__info">
           <h1 className="profile__name">{userName}</h1>
-          <button className="profile__edit-button" aria-label="Кнопка редактировать профиль" type="button" onClick={props.onEditProfile}></button>
+          <button className="profile__edit-button" aria-label="Кнопка редактировать профиль" type="button" onClick={onEditProfile}></button>
           <p className="profile__text">{userDescription}</p>
         </div>
-        <button className="profile__add-button" aria-label="Кнопка добавить" type="button" onClick={props.onAddPlace}></button>
+        <button className="profile__add-button" aria-label="Кнопка добавить" type="button" onClick={onAddPlace}></button>
       </section>
       <section className="elements" aria-label="Фотографии">
         {
           cards.map((card, i) => {
-            return (<Card key={i} card={card} onCardClick={(card) => {props.onCardClick(card)}} />);
+            return (<Card key={card.id} card={card} onCardClick={(card) => {onCardClick(card)}} />);
           })
         }
       </section>
