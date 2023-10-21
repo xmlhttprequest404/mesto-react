@@ -47,7 +47,7 @@ function App() {
     <Header />
     <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={(card) => {handleCardClick(card)}} />
     <Footer />
-    <PopupWithForm title="Редактировать профиль" name="profile" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} submitText={'Сохранить'}>
+    <PopupWithForm title="Редактировать профиль" name="profile" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
       <label className="popup__field">
           <input type="text" name="name" placeholder="Имя" className="popup__input popup__input_name" id="name-input" minLength="2" maxLength="40" required />
           <span className="popup__input-error name-input-error"></span>
@@ -67,7 +67,7 @@ function App() {
         <span className="popup__input-error url-input-error"></span>
       </label>
     </PopupWithForm>
-    <PopupWithForm title="Обновить аватар" name="avatar" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} submitText={'Сохранить'}>
+    <PopupWithForm title="Обновить аватар" name="avatar" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
     <label className="popup__field">
       <input type="url" name="avatarUrlImage" placeholder="Ссылка на фото" className="popup__input popup__input_url-image" id="url-input-avatar" required />
       <span className="popup__input-error url-input-avatar-error"></span>

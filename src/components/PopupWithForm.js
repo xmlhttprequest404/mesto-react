@@ -12,7 +12,7 @@ function PopupWithForm ({isOpen, name, title, children, submitText, onClose}) {
             <button type="submit"
               className={`popup__submit popup__submit_disabled ${name === 'avatar' ? 'popup__submit_place_avatar' : ''}`}
               aria-label="Кнопка сохранить">
-              {submitText}<span className="preloader">...</span>
+              {submitText || 'Сохранить'}<span className="preloader">...</span>
             </button>
           </form>
           <button type="button" className="popup__exit" aria-label="Кнопка выхода" onClick={onClose}></button>

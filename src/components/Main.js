@@ -46,7 +46,7 @@ function Main ({onEditAvatar, onAddPlace, onEditProfile, onCardClick}) {
       <section className="elements" aria-label="Фотографии">
         {
           cards.map((card, i) => {
-            return (<Card key={card.id} card={card} onCardClick={(card) => {onCardClick(card)}} />);
+            return (<Card key={card._id} card={card} onCardClick={(card) => {onCardClick(card)}} />); // Странно, вчера казалось когда смотрел в ответ от сервера id не было приватным)) Спасибо за ревью)
           })
         }
       </section>
