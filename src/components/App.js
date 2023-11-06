@@ -84,30 +84,32 @@ function App() {
 
   function handleUpdateUser ({name, about:description}) {
     setIsLoading(true);
-    api.sendUserInfoApi({name, about:description}).then(res => {
-      setCurrentUser(res);
-    })
-    .catch(error => {
-      console.log(error)
-    })
-    .finally(() => {
-      closeAllPopups();
-      setIsLoading(false)
-    })
+    api.sendUserInfoApi({name, about:description})
+      .then(res => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   function handleUpdateAvatar (avatarRef) {
     setIsLoading(true);
-    api.setUserAvatar(avatarRef).then(res => {
-      setCurrentUser(res)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-    .finally(() => {
-      closeAllPopups();
-      setIsLoading(false);
-    })
+    api.setUserAvatar(avatarRef)
+      .then(res => {
+        setCurrentUser(res)
+        closeAllPopups();
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   function handleAddPlaceSubmit (card) {
@@ -115,12 +117,12 @@ function App() {
     api.sendNewCard(card)
       .then(newCard => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch(error => {
         console.log(error)
       })
       .finally(() => {
-        closeAllPopups();
         setIsLoading(false)
       })
   }
@@ -141,13 +143,13 @@ function App() {
     setIsLoading(true);
     api.deleteCard(cardForDel._id).then(() => {
       setCards((state) => state.filter((c) => c._id !== cardForDel._id))
+      closeAllPopups();
     })
     .catch(error => {
       console.log(error)
     })
     .finally(() => {
       setIsLoading(false);
-      closeAllPopups();
     })
   }
 

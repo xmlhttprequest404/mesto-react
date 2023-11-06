@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { validationConfigContext } from "../contexts/validationConfigContext";
 
@@ -14,10 +14,14 @@ function AddPlacePopup ({ isOpen, onClose , onAddPlace, loadIndicator, onOverlay
   const errorVisibleClass = validationConfig.errorVisibleClass;
   const popupInputErrorClass = validationConfig.inputErrorClass;
 
+  useEffect(() => {
+    setName('');
+    setUrl('');
+  }, [isOpen])
+
   function handleSubmit (e) {
     e.preventDefault();
     onAddPlace({ name, url })
-    e.target.reset();
     setNameIsValid(false);
     setUrlIsValid(false);
   }
@@ -49,6 +53,7 @@ function AddPlacePopup ({ isOpen, onClose , onAddPlace, loadIndicator, onOverlay
                placeholder="Название"
                className={`popup__input popup__input_title ${nameIsValid ? '' : `${popupInputErrorClass}`}`}
                id="title-input" minLength="2" maxLength="30" required
+               value={name}
                onChange={handleNameChange}
         />
         <span className={`title-input-error ${popupErrorClass} ${nameIsValid ? '' : `${errorVisibleClass}`}`}>{nameValidationMessage}</span>
@@ -59,6 +64,7 @@ function AddPlacePopup ({ isOpen, onClose , onAddPlace, loadIndicator, onOverlay
                placeholder="Ссылка на картинку"
                className={`popup__input popup__input_url-image ${urlIsValid ? '' : `${popupInputErrorClass}`}`}
                id="url-input" required
+               value={url}
                onChange={handleUrlChange}
         />
         <span className={`url-input-error ${popupErrorClass} ${urlIsValid ? '' : `${errorVisibleClass}`}`}>{urlValidationMessage}</span>
