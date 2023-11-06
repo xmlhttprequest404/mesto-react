@@ -36,11 +36,11 @@ class Api {
     })
   }
 
-  sendCard (userData) {
+  sendNewCard (card) {
     return this._sendRequest(`${this._url}cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify(userData)
+      body: JSON.stringify(card)
     })
   }
 
@@ -65,12 +65,20 @@ class Api {
     })
   }
 
-  loadNewAvatar (avatar) {
+  setUserAvatar (avatar) {
     return this._sendRequest(`${this._url}users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(avatar)
     })
+  }
+
+  changeLikeCardStatus (id, like) {
+    if (like) {
+      return this.increaseLike(id)
+    } else {
+      return this.decreaseLike(id);
+    }
   }
 }
 
